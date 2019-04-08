@@ -4,7 +4,12 @@
   become_user: root
   become_method: sudo 
 
-  tasks:
+  vars:
+    gitlab_restart_handler_failed_when: false
 
-  - name: ping
-    ping:
+  tasks:
+  
+  roles:
+    - role: gitlab-server
+
+  

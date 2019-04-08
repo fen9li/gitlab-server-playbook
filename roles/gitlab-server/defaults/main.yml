@@ -1,0 +1,11 @@
+---
+# General config.
+gitlab_external_url: "https://gitlab.greencap.com.au/"
+registry_external_url: "https://gitlabregistry.greencap.com.au"
+
+gitlab_git_data_dir: "/var/opt/gitlab/git-data"
+gitlab_edition: "gitlab-ee"
+gitlab_version: ''
+gitlab_backup_path: "/var/opt/gitlab/backups"
+gitlab_config_template: "gitlab.rb.j2"
+gitlab_download_validate_certs: true
