@@ -1,40 +1,80 @@
+# provisioning gitlab server enterprise on an existing host
 
+## hardware requirement
 
-curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh | sudo bash
-sudo systemctl stop httpd; sudo systemctl stop httpd; sudo yum -y erase httpd  
-sudo EXTERNAL_URL="https://gitlab.greencap.com.au" yum install -y gitlab-ee
+> the gitlab server and its supporting aws resources have been defined in [gitlab-server and its supporting infrastructure build guide](https://scode.greencap.com.au/devops/gitlab-server)
 
-sudo cp /etc/gitlab/gitlab.rb /etc/gitlab/gitlab.rb.orig
-sudo cat >> /etc/gitlab/gitlab.rb <<EOL
-gitlab_rails['ldap_enabled'] = false
-gitlab_rails['smtp_enable'] = true
-gitlab_rails['smtp_address'] = "smtp.sendgrid.net"
-gitlab_rails['smtp_port'] = 2525
-gitlab_rails['smtp_user_name'] = "apikey"
-gitlab_rails['smtp_password'] = "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"
-gitlab_rails['smtp_domain'] = "smtp.sendgrid.net"
-gitlab_rails['smtp_authentication'] = "login"
-gitlab_rails['smtp_enable_starttls_auto'] = true
-gitlab_rails['smtp_tls'] = false
-registry_external_url 'https://gitlabregistry.greencap.com.au'
+## usage 
 
-nginx['listen_port'] = 80
-nginx['listen_https'] = false
-nginx['proxy_set_headers'] = {
-  "X-Forwarded-Proto" => "https",
-  "X-Forwarded-Ssl" => "on"
-}
+* clone this repo to linux jumpbox
 
-registry_nginx['listen_port'] = 80
-registry_nginx['listen_https'] = false
-registry_nginx['proxy_set_headers'] = {
-  'X-Forwarded-Proto' => 'https',
-  'X-Forwarded-Ssl' => 'on'
-}
+```
+ ~]$ git clone https://github.com/fen9li/gitlab-server-playbook.git
+Cloning into 'gitlab-server-playbook'...
+remote: Enumerating objects: 8, done.
+remote: Counting objects: 100% (8/8), done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 8 (delta 0), reused 5 (delta 0), pack-reused 0
+Unpacking objects: 100% (8/8), done.
+ ~]$ cd gitlab-server-playbook/
+ gitlab-server-playbook]$
+```
 
-letsencrypt['enable'] = false
-letsencrypt['auto_renew'] = false
-EOL
+* configure new gitlab-server ec2 instance in hosts
 
-gitlab-ctl reconfigure
+> get ready the private ip address of the new gitlab-server ec2 instance you have created    
+> update the private ip address in /home/ec2-user/gitlab-server-playbook/hosts
 
+```
+ gitlab-server-playbook]$ vim hosts
+ gitlab-server-playbook]$ cat hosts
+[gitlab-server]
+173.120.15.102
+ gitlab-server-playbook]$ 
+```
+
+* run playbook
+
+```
+ gitlab-server-playbook]$ ansible-playbook -i hosts site.yml
+
+PLAY [gitlab-server] ****************************************************************************************************************
+
+TASK [Gathering Facts] **************************************************************************************************************
+ok: [173.120.15.102]
+
+TASK [gitlab-server : Include OS-specific variables.] *******************************************************************************
+ok: [173.120.15.102]
+
+TASK [gitlab-server : Check if GitLab configuration file already exists.] ***********************************************************
+ok: [173.120.15.102]
+
+TASK [gitlab-server : Check if GitLab is already installed.] ************************************************************************
+ok: [173.120.15.102]
+
+TASK [gitlab-server : Download GitLab repository installation script.] **************************************************************
+skipping: [173.120.15.102]
+
+TASK [gitlab-server : Install GitLab repository.] ***********************************************************************************
+skipping: [173.120.15.102]
+
+TASK [gitlab-server : Define the Gitlab package name.] ******************************************************************************
+skipping: [173.120.15.102]
+
+TASK [gitlab-server : Install GitLab] ***********************************************************************************************
+skipping: [173.120.15.102]
+
+TASK [gitlab-server : Reconfigure GitLab (first run).] ******************************************************************************
+ok: [173.120.15.102]
+
+TASK [gitlab-server : Copy GitLab configuration file.] ******************************************************************************
+changed: [173.120.15.102]
+
+RUNNING HANDLER [gitlab-server : restart gitlab] ************************************************************************************
+changed: [173.120.15.102]
+
+PLAY RECAP **************************************************************************************************************************
+173.120.15.102             : ok=7    changed=2    unreachable=0    failed=0
+
+ gitlab-server-playbook]$
+```
