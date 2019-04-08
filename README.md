@@ -6,6 +6,14 @@
 
 ## usage 
 
+* get the new gitlab-server ec2 instance private ip address
+
+```
+fli-macbook-pro:~ feng.li$ aws ec2 describe-instances --profile dev --filters "Name=tag:Name,Values=gitlab-server" "Name=instance-state-name,Values=running"  --query "Reservations[].Instances[].PrivateIpAddress" --output text
+173.120.15.102
+fli-macbook-pro:~ feng.li$
+```
+
 * clone this repo to linux jumpbox
 
 ```
@@ -20,10 +28,7 @@ Unpacking objects: 100% (8/8), done.
  gitlab-server-playbook]$
 ```
 
-* configure new gitlab-server ec2 instance in hosts
-
-> get ready the private ip address of the new gitlab-server ec2 instance you have created    
-> update the private ip address in /home/ec2-user/gitlab-server-playbook/hosts
+* configure / update new gitlab-server ec2 instance's private ip address in /home/ec2-user/gitlab-server-playbook/hosts file
 
 ```
  gitlab-server-playbook]$ vim hosts
