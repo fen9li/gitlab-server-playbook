@@ -8,7 +8,7 @@ gitlab_edition: "gitlab-ee"
 gitlab_version: ''
 gitlab_backup_path: "/var/opt/gitlab/backups"
 gitlab_config_template: "gitlab.rb.j2"
-gitlab_download_validate_certs: yes
+gitlab_download_validate_certs: no
 
-smtp_user_name: xxxx
-smtp_password: xxxx
+# smtp_user_name: xxxx
+# smtp_password: xxxx
