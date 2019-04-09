@@ -19,11 +19,11 @@ $
 
 * ensure the new gitlab-server ec2 instance can serve url https://gitlab.greencap.com.au/explore/ correctly
 
-[https://gitlab.greencap.com.au/explore/](images/gitlab.png)
+![testing gitlab domain name](images/gitlab.png)
 
 * ensure the new gitlab-server ec2 instance can serve url https://gitlabregistry.greencap.com.au/explore/ correctly
 
-[https://gitlabregistry.greencap.com.au/explore/](images/gitlabregistry.png)
+![testing gitlabregistry domain name](images/gitlabregistry.png)
 
 * clone this repo to linux jumpbox
 
