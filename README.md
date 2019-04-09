@@ -13,9 +13,17 @@ sendgrid user account for gitlab server aws production has been created successf
 
 ```
 $ aws ec2 describe-instances --profile dev --filters "Name=tag:Name,Values=gitlab-server" "Name=instance-state-name,Values=running"  --query "Reservations[].Instances[].PrivateIpAddress" --output text
-173.120.15.79
+173.120.15.188
 $
 ```
+
+* ensure the new gitlab-server ec2 instance can serve url https://gitlab.greencap.com.au/explore/ correctly
+
+[https://gitlab.greencap.com.au/explore/](images/gitlab.png)
+
+* ensure the new gitlab-server ec2 instance can serve url https://gitlabregistry.greencap.com.au/explore/ correctly
+
+[https://gitlabregistry.greencap.com.au/explore/](images/gitlabregistry.png)
 
 * clone this repo to linux jumpbox
 
