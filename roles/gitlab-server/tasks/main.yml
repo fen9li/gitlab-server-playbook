@@ -2,6 +2,11 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
   
+- name: uninstall httpd
+  yum: 
+    name: httpd
+    state: absent
+    
 - name: Check if GitLab configuration file already exists.
   stat: path=/etc/gitlab/gitlab.rb
   register: gitlab_config_file

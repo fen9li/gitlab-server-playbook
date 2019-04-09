@@ -1,17 +1,20 @@
-# provisioning gitlab server enterprise on an existing host
+# provisioning gitlab server ee on an existing host
 
 ## hardware requirement
 
-> the gitlab server and its supporting aws resources have been defined in [gitlab-server and its supporting infrastructure build guide](https://scode.greencap.com.au/devops/gitlab-server)
+* the gitlab server and its supporting aws resources have been defined in [gitlab-server and its supporting infrastructure build guide](https://scode.greencap.com.au/devops/gitlab-server)
+
+* sendgrid user account 
+sendgrid user account for gitlab server aws production has been created successfully and recorded in secret manager.
 
 ## usage 
 
 * get the new gitlab-server ec2 instance private ip address
 
 ```
-fli-macbook-pro:~ feng.li$ aws ec2 describe-instances --profile dev --filters "Name=tag:Name,Values=gitlab-server" "Name=instance-state-name,Values=running"  --query "Reservations[].Instances[].PrivateIpAddress" --output text
-173.120.15.102
-fli-macbook-pro:~ feng.li$
+$ aws ec2 describe-instances --profile dev --filters "Name=tag:Name,Values=gitlab-server" "Name=instance-state-name,Values=running"  --query "Reservations[].Instances[].PrivateIpAddress" --output text
+173.120.15.79
+$
 ```
 
 * clone this repo to linux jumpbox
@@ -34,14 +37,16 @@ Unpacking objects: 100% (8/8), done.
  gitlab-server-playbook]$ vim hosts
  gitlab-server-playbook]$ cat hosts
 [gitlab-server]
-173.120.15.102
+173.120.15.79
  gitlab-server-playbook]$ 
 ```
 
 * run playbook
 
+> replace your smtp_username and smtp_password in ansible-playbook command and run it
+
 ```
- gitlab-server-playbook]$ ansible-playbook -i hosts site.yml
+ gitlab-server-playbook]$ ansible-playbook -i hosts gitlab-server site.yml --extra-vars "smtp_username=apikey smtp_password=[your_smtp_user_password]" 
 
 PLAY [gitlab-server] ****************************************************************************************************************
 
