@@ -45,7 +45,7 @@ Unpacking objects: 100% (8/8), done.
  gitlab-server-playbook]$ vim hosts
  gitlab-server-playbook]$ cat hosts
 [gitlab-server]
-173.120.15.79
+173.120.15.188
  gitlab-server-playbook]$ 
 ```
 
