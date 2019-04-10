@@ -49,50 +49,58 @@ Unpacking objects: 100% (8/8), done.
  gitlab-server-playbook]$ 
 ```
 
-* run playbook
+* run playbook to provision gitlab server
 
-> replace your smtp_username and smtp_password in ansible-playbook command and run it
+> YOU MUST REPLACE smtp_username AND smtp_password WITH YOUR REAL ONE   in BELOW ansible-playbook command! THE smtp_password SHOWED BELOW IS A FAKE ONE.
 
 ```
- gitlab-server-playbook]$ ansible-playbook -i hosts gitlab-server site.yml --extra-vars "smtp_username=apikey smtp_password=[your_smtp_user_password]" 
+ gitlab-server-playbook]$ ansible-playbook -i hosts site.yml --extra-vars "smtp_username=apikey smtp_password=uk0#ncv3ALwX8aQW"
 
 PLAY [gitlab-server] ****************************************************************************************************************
 
 TASK [Gathering Facts] **************************************************************************************************************
-ok: [173.120.15.102]
+ok: [173.120.15.188]
 
 TASK [gitlab-server : Include OS-specific variables.] *******************************************************************************
-ok: [173.120.15.102]
+ok: [173.120.15.188]
+
+TASK [gitlab-server : uninstall httpd] **********************************************************************************************
+changed: [173.120.15.188]
 
 TASK [gitlab-server : Check if GitLab configuration file already exists.] ***********************************************************
-ok: [173.120.15.102]
+ok: [173.120.15.188]
 
 TASK [gitlab-server : Check if GitLab is already installed.] ************************************************************************
-ok: [173.120.15.102]
+ok: [173.120.15.188]
 
 TASK [gitlab-server : Download GitLab repository installation script.] **************************************************************
-skipping: [173.120.15.102]
+changed: [173.120.15.188]
 
 TASK [gitlab-server : Install GitLab repository.] ***********************************************************************************
-skipping: [173.120.15.102]
+changed: [173.120.15.188]
 
 TASK [gitlab-server : Define the Gitlab package name.] ******************************************************************************
-skipping: [173.120.15.102]
+skipping: [173.120.15.188]
 
 TASK [gitlab-server : Install GitLab] ***********************************************************************************************
-skipping: [173.120.15.102]
+changed: [173.120.15.188]
 
 TASK [gitlab-server : Reconfigure GitLab (first run).] ******************************************************************************
-ok: [173.120.15.102]
+changed: [173.120.15.188]
 
 TASK [gitlab-server : Copy GitLab configuration file.] ******************************************************************************
-changed: [173.120.15.102]
+changed: [173.120.15.188]
 
 RUNNING HANDLER [gitlab-server : restart gitlab] ************************************************************************************
-changed: [173.120.15.102]
+changed: [173.120.15.188]
 
 PLAY RECAP **************************************************************************************************************************
-173.120.15.102             : ok=7    changed=2    unreachable=0    failed=0
+173.120.15.188             : ok=11   changed=7    unreachable=0    failed=0
 
  gitlab-server-playbook]$
 ```
+
+* enter https://gitlab.greencap.com.au to reset root password, follow gitlab server recommended common practice to add new runners, groups, users, projects and you go.
+
+## what to do next
+* runners can also be coded 
