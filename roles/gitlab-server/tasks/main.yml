@@ -74,4 +74,5 @@
     name: "backup gitlab to local"
     minute: "15"
     hour: "16"
+    weekday: "2-6"
     job: "/root/gitlab-server-backup.sh"
