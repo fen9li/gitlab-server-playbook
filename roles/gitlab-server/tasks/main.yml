@@ -63,8 +63,8 @@
 
 - name: Copy over gitlab server backup script
   copy:
-    src: gitlab-backup.sh
-    dest: /root
+    src: gitlab-server-backup.sh
+    dest: /root/gitlab-server-backup.sh
     owner: root
     group: root
     mode: 0755
