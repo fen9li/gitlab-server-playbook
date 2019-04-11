@@ -52,3 +52,26 @@
     group: root
     mode: 0600
   notify: restart gitlab
+
+- name: Create gitlab configuration backup directory
+  file:
+    path: /secret/gitlab/backups
+    state: directory
+    owner: root
+    group: root
+    mode: 0755 
+
+- name: Copy over gitlab server backup script
+  copy:
+    src: gitlab-backup.sh
+    dest: ~
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Create cronjob to run gitlab backup script @ AEST0215 or UTC1615
+  cron:
+    name: "backup gitlab to local"
+    minute: "15"
+    hour: "16"
+    job: "/root/gitlab-server-backup.sh"
