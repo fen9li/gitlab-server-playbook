@@ -72,7 +72,7 @@
 - name: Create cronjob to run gitlab backup script @ AEST0215 or UTC1615
   cron:
     name: "backup gitlab to local"
-    minute: "15"
-    hour: "16"
-    weekday: "2-6"
+    minute: "15" # AEST 15
+    hour: "16"   # AEST 02
+    weekday: "1-5" # AEST Tuesday - Saturday
     job: "/root/gitlab-server-backup.sh"
